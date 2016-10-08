@@ -8,18 +8,23 @@
  */
 
 import React from 'react';
-import ErrorPage from './ErrorPage';
+import Admin from './Admin';
+
+const title = 'Admin Page';
+const isAdmin = false;
 
 export default {
 
-  path: '/error',
+  path: '/admin',
 
-  action({ error }) {
+  action() {
+    if (!isAdmin) {
+      return { redirect: '/login' };
+    }
+
     return {
-      title: error.name,
-      description: error.message,
-      component: <ErrorPage error={error} />,
-      status: error.status || 500,
+      title,
+      component: <Admin title={title} />,
     };
   },
 

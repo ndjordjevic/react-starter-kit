@@ -114,14 +114,14 @@ let currentLocation = history.location;
 let routes = require('./routes').default;
 
 // Re-render the app when window.location changes
-async function onLocationChange(location) {
+async function onLocationChange(location, action) {
   // Remember the latest scroll position for the previous location
   scrollPositionsHistory[currentLocation.key] = {
     scrollX: window.pageXOffset,
     scrollY: window.pageYOffset,
   };
   // Delete stored scroll position for next page if any
-  if (history.action === 'PUSH') {
+  if (action === 'PUSH') {
     delete scrollPositionsHistory[location.key];
   }
   currentLocation = location;
@@ -148,8 +148,7 @@ async function onLocationChange(location) {
     appInstance = ReactDOM.render(
       <App context={context}>{route.component}</App>,
       container,
-      () => onRenderComplete(route, location)
-    );
+      () => onRenderComplete(route, location));
   } catch (error) {
     console.error(error); // eslint-disable-line no-console
 

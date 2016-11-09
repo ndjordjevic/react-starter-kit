@@ -20,7 +20,7 @@ const serverPath = path.join(output.path, output.filename);
 
 // Launch or restart the Node.js server
 function runServer() {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     let pending = true;
 
     function onStdOut(data) {

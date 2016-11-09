@@ -27,7 +27,7 @@ const [config] = webpackConfig;
 async function start() {
   await run(clean);
   await run(copy);
-  await new Promise(resolve => {
+  await new Promise((resolve) => {
     // Hot Module Replacement (HMR) + React Hot Reload
     if (config.debug) {
       config.entry = ['react-hot-loader/patch', 'webpack-hot-middleware/client', config.entry];

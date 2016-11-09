@@ -30,6 +30,7 @@ function ErrorPage({ error }) {
   );
 }
 
+/* eslint-disable react/forbid-prop-types */
 ErrorPage.propTypes = {
   error: PropTypes.object.isRequired,
 };

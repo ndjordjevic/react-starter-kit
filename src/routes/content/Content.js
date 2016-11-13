@@ -7,28 +7,26 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Content.css';
 
-class Content extends React.Component {
-  static propTypes = {
-    path: PropTypes.string.isRequired,
-    content: PropTypes.string.isRequired,
-    title: PropTypes.string,
-  };
-
-  render() {
-    const { path, title, content } = this.props;
-    return (
-      <div className={s.root}>
-        <div className={s.container}>
-          {title && path !== '/' && <h1>{title}</h1>}
-          <div dangerouslySetInnerHTML={{ __html: content }} />
-        </div>
+function Content(props) {
+  const { path, title, content } = props;
+  return (
+    <div className={s.root}>
+      <div className={s.container}>
+        {title && path !== '/' && <h1>{title}</h1>}
+        <div dangerouslySetInnerHTML={{ __html: content }} />
       </div>
-    );
-  }
+    </div>
+  );
 }
+
+Content.propTypes = {
+  path: React.PropTypes.string.isRequired,
+  content: React.PropTypes.string.isRequired,
+  title: React.PropTypes.string,
+};
 
 export default withStyles(s)(Content);

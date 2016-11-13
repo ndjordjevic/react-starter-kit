@@ -7,25 +7,23 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Contact.css';
 
-class Contact extends React.Component {
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-  };
-
-  render() {
-    return (
-      <div className={s.root}>
-        <div className={s.container}>
-          <h1>{this.props.title}</h1>
-          <p>...</p>
-        </div>
+function Contact(props) {
+  return (
+    <div className={s.root}>
+      <div className={s.container}>
+        <h1>{props.title}</h1>
+        <p>...</p>
       </div>
-    );
-  }
+    </div>
+  );
 }
+
+Contact.propTypes = {
+  title: React.PropTypes.string.isRequired,
+};
 
 export default withStyles(s)(Contact);

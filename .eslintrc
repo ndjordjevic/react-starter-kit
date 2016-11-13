@@ -20,6 +20,7 @@
       "functions": "ignore"
     }],
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
-    "react/no-danger": ["off"]
+    "react/no-danger": ["off"],
+    "react/forbid-prop-types": ["off", {"forbid": ["any", "array", "object"]}]
   }
 }

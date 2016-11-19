@@ -75,7 +75,7 @@ app.get('/login/facebook/return',
 // -----------------------------------------------------------------------------
 app.use('/graphql', expressGraphQL(req => ({
   schema,
-  graphiql: true,
+  graphiql: process.env.NODE_ENV !== 'production',
   rootValue: { request: req },
   pretty: process.env.NODE_ENV !== 'production',
 })));
@@ -111,7 +111,7 @@ app.get('*', async (req, res, next) => {
     const data = { ...route };
     data.children = ReactDOM.renderToString(<App context={context}>{route.component}</App>);
     data.style = [...css].join('');
-    data.script = assets.main.js;
+    data.script = assets.client.js;
     data.chunk = assets[route.chunk] && assets[route.chunk].js;
     const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
 

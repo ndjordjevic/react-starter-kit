@@ -57,6 +57,9 @@ app.use(expressJwt({
 }));
 app.use(passport.initialize());
 
+if (process.env.NODE_ENV !== 'production') {
+  app.enable('trust proxy');
+}
 app.get('/login/facebook',
   passport.authenticate('facebook', { scope: ['email', 'user_location'], session: false }),
 );
@@ -111,10 +114,15 @@ app.get('*', async (req, res, next) => {
     const data = { ...route };
     data.children = ReactDOM.renderToString(<App context={context}>{route.component}</App>);
     data.style = [...css].join('');
-    data.script = assets.client.js;
-    data.chunk = assets[route.chunk] && assets[route.chunk].js;
-    const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
+    data.scripts = [
+      assets.vendor.js,
+      assets.client.js,
+    ];
+    if (assets[route.chunk]) {
+      data.scripts.push(assets[route.chunk].js);
+    }
 
+    const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
     res.status(route.status || 200);
     res.send(`<!doctype html>${html}`);
   } catch (err) {

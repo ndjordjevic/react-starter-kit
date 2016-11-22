@@ -11,34 +11,32 @@ import React from 'react';
 import { analytics } from '../config';
 
 function Html(props) {
-  const { title, description, style, script, chunk, children } = props;
+  const { title, description, style, scripts, children } = props;
   return (
     <html className="no-js" lang="en">
-      <head>
-        <meta charSet="utf-8" />
-        <meta httpEquiv="x-ua-compatible" content="ie=edge" />
-        <title>{title}</title>
-        <meta name="description" content={description} />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-        {style && <style id="css" dangerouslySetInnerHTML={{ __html: style }} />}
-      </head>
-      <body>
-        <div id="app" dangerouslySetInnerHTML={{ __html: children }} />
-        {script && <script src={script} />}
-        {chunk && <script src={chunk} />}
-        {analytics.google.trackingId &&
-        <script
-          dangerouslySetInnerHTML={{
-            __html: 'window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;' +
-            `ga('create','${analytics.google.trackingId}','auto');ga('send','pageview')`,
-          }}
-        />
-        }
-        { analytics.google.trackingId &&
-          <script src="https://www.google-analytics.com/analytics.js" async defer />
-        }
-      </body>
+    <head>
+      <meta charSet="utf-8" />
+      <meta httpEquiv="x-ua-compatible" content="ie=edge" />
+      <title>{title}</title>
+      <meta name="description" content={description} />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+      {style && <style id="css" dangerouslySetInnerHTML={{ __html: style }} />}
+    </head>
+    <body>
+    <div id="app" dangerouslySetInnerHTML={{ __html: children }} />
+    {scripts && scripts.map(script => <script key={script} src={script} />)}
+    {analytics.google.trackingId &&
+    <script
+      dangerouslySetInnerHTML={{ __html:
+      'window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;' +
+      `ga('create','${analytics.google.trackingId}','auto');ga('send','pageview')` }}
+    />
+    }
+    {analytics.google.trackingId &&
+    <script src="https://www.google-analytics.com/analytics.js" async defer />
+    }
+    </body>
     </html>
   );
 }
@@ -47,8 +45,7 @@ Html.propTypes = {
   title: React.PropTypes.string.isRequired,
   description: React.PropTypes.string.isRequired,
   style: React.PropTypes.string,
-  script: React.PropTypes.string,
-  chunk: React.PropTypes.string,
+  scripts: React.PropTypes.arrayOf(React.PropTypes.string.isRequired),
   children: React.PropTypes.string,
 };
 

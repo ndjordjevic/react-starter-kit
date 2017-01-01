@@ -9,24 +9,23 @@
 
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Content.css';
+import s from './Page.css';
 
-function Content(props) {
-  const { path, title, content } = props;
+function Page(props) {
+  const { title, html } = props;
   return (
     <div className={s.root}>
       <div className={s.container}>
-        {title && path !== '/' && <h1>{title}</h1>}
-        <div dangerouslySetInnerHTML={{ __html: content }} />
+        {title && <h1>{title}</h1>}
+        <div dangerouslySetInnerHTML={{ __html: html }} />
       </div>
     </div>
   );
 }
 
-Content.propTypes = {
-  path: React.PropTypes.string.isRequired,
-  content: React.PropTypes.string.isRequired,
+Page.propTypes = {
   title: React.PropTypes.string,
+  html: React.PropTypes.string.isRequired,
 };
 
-export default withStyles(s)(Content);
+export default withStyles(s)(Page);

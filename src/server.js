@@ -61,10 +61,7 @@ if (process.env.NODE_ENV !== 'production') {
   app.enable('trust proxy');
 }
 app.get('/login/facebook',
-  passport.authenticate('facebook', { scope: ['email', 'user_location'], session: false }),
-  (req, res) => {
-    console.log('asdfasdfasdf');
-  },
+  passport.authenticate('facebook', { scope: ['email', 'user_location'], session: false })
 );
 app.get('/login/facebook/return',
   passport.authenticate('facebook', { failureRedirect: '/login', session: false }),

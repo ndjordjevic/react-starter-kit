@@ -23,7 +23,7 @@ function NotFound(props) {
 }
 
 NotFound.propTypes = {
-  title: React.PropTypes.string.isRequired
+  title: React.PropTypes.string.isRequired,
 };
 
 export default withStyles(s)(NotFound);

@@ -7,12 +7,12 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './ErrorPage.css';
 
 function ErrorPage(props) {
-  if (process.env.NODE_ENV !== 'production') {
+  if (__DEV__) {
     const { error } = props;
     return (
       <div>
@@ -32,7 +32,11 @@ function ErrorPage(props) {
 }
 
 ErrorPage.propTypes = {
-  error: React.PropTypes.object.isRequired
+  error: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    message: PropTypes.string.isRequired,
+    stack: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export { ErrorPage as ErrorPageWithoutStyle };

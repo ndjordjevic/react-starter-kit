@@ -8,5 +8,3 @@ ncp-debug.log
 npm-debug.log
 .idea
 .DS_Store
-stats.json
-report.html
